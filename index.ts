@@ -31,7 +31,8 @@ async function index() {
 
         console.log("==> Repo:", owner + "/" + repo)
 
-        console.log("==> Conclusion:", workflowConclusion)
+        if(workflowConclusion)
+            console.log("==> Conclusion:", workflowConclusion)
 
         if (pr) {
             console.log("==> PR:", pr)
@@ -60,6 +61,9 @@ async function index() {
         if (runNumber) {
             console.log("==> RunNumber:", runNumber)
         }
+
+        if(runID)
+            console.log(`==> runID: ${runID}`)
 
         if (!runID) {
             for await (const runs of client.paginate.iterator(client.rest.actions.listWorkflowRuns, {
