@@ -21,6 +21,8 @@ async function main() {
         let runNumber = core.getInput("run_number")
         let checkArtifacts = core.getInput("check_artifacts")
         let searchArtifacts = core.getInput("search_artifacts")
+        let checkOnly = core.getInput("check_only")
+        let unpack = core.getInput("unpack")
 
         const client = github.getOctokit(token)
 
@@ -126,6 +128,12 @@ async function main() {
         if (artifacts.length == 0)
             throw new Error("no artifacts found")
 
+        if(checkOnly)
+        {
+            core.setOutput("exists", true);
+            return;
+        }
+
         for (const artifact of artifacts) {
             console.log("==> Artifact:", artifact.id)
 
@@ -140,20 +148,25 @@ async function main() {
                 archive_format: "zip",
             })
 
-            const dir = name ? path : pathname.join(path, artifact.name)
 
-            fs.mkdirSync(dir, { recursive: true })
+            if(unpack === "true" || unpack === true)
+            {
+                const dir = name ? path : pathname.join(path, artifact.name)
 
-            const adm = new AdmZip(Buffer.from(zip.data))
+                fs.mkdirSync(dir, { recursive: true })
 
-            adm.getEntries().forEach((entry) => {
-                const action = entry.isDirectory ? "creating" : "inflating"
-                const filepath = pathname.join(dir, entry.entryName)
+                const adm = new AdmZip(Buffer.from(zip.data))
 
-                console.log(`  ${action}: ${filepath}`)
-            })
+                adm.getEntries().forEach((entry) => {
+                    const action = entry.isDirectory ? "creating" : "inflating"
+                    const filepath = pathname.join(dir, entry.entryName)
 
-            adm.extractAllTo(dir, true)
+                    console.log(`  ${action}: ${filepath}`)
+                })
+
+                adm.extractAllTo(dir, true)
+            }
+
         }
     } catch (error) {
         core.setFailed(error.message)

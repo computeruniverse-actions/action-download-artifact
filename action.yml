@@ -45,14 +45,21 @@ inputs:
     description: Artifact name (download all artifacts in not specified)
     required: false
   path:
-    description: Where to unpack the artifact
+    description: Where to download or unpack the artifact
     required: false
     default: "./"
+  unpack:
+    description: Unpack the artifact
+    required: false
+    default: "true"
   check_artifacts:
     description: Check workflow run whether it has an artifact
     required: false
   search_artifacts:
     description: Search workflow runs for artifact with specified name
+    required: false
+  check_only:
+    description: Check only if artifact exists, don't download
     required: false
 runs:
   using: node12
