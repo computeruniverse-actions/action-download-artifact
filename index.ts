@@ -71,7 +71,7 @@ async function index() {
             }
             )) {
                 for (const run of runs.data) {
-                    if (commit && run.head_sha != commit) {
+                    if (!searchArtifacts && (commit && run.head_sha != commit)) {
                         continue
                     }
                     if (runNumber && run.run_number != runNumber) {
