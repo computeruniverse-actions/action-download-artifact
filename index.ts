@@ -110,7 +110,10 @@ async function index() {
         if (runID) {
             console.log("==> RunID:", runID)
         } else {
-            throw new Error("no matching workflow run found")
+            console.error("no matching workflow run found");
+            console.log("artifact does NOT exist");
+            core.setOutput("exists", false);
+            return;
         }
 
         let artifactsRaw = (await client.paginate(client.rest.actions.listWorkflowRunArtifacts, {
@@ -136,7 +139,10 @@ async function index() {
         }
 
         if (artifacts?.length == 0)
-            throw new Error("no artifacts found")
+        {
+            core.setOutput("exists", false);
+            return;
+        }
 
 
 
