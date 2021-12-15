@@ -6,5 +6,14 @@
     "@actions/github": "^5.0.0",
     "adm-zip": "^0.5.5",
     "filesize": "^6.2.2"
+  },
+  "devDependencies": {
+    "@types/adm-zip": "^0.4.34",
+    "@types/node": "^16.11.13",
+    "original-fs": "^1.1.0",
+    "ts-loader": "^9.2.6",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1"
   }
 }
