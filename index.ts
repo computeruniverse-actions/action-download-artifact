@@ -122,15 +122,23 @@ async function index() {
         console.log(artifactsRaw);
         const artifacts = artifactsRaw?.filter(artifact => !name || artifact.name === name)
 
+        if(checkOnly)
+        {
+            if(artifacts?.length)
+            {
+                console.log("artifact exists");
+                core.setOutput("exists", true);
+            } else {
+                console.log("artifact does NOT exist");
+                core.setOutput("exists", false);
+            }
+            return;
+        }
+
         if (artifacts?.length == 0)
             throw new Error("no artifacts found")
 
-        if(checkOnly)
-        {
-            console.log("artifact exists");
-            core.setOutput("exists", true);
-            return;
-        }
+
 
         for (const artifact of artifacts) {
             console.log("==> Artifact:", artifact.id)
