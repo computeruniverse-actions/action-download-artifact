@@ -172,7 +172,7 @@ async function index() {
 
                 adm.extractAllTo(dir, true)
             }
-
+            core.setOutput("exists", true);
         }
     } catch (error) {
         core.setFailed(error.message)
