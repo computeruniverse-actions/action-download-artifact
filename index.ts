@@ -127,6 +127,7 @@ async function index() {
 
         if(checkOnly)
         {
+            console.log("artifact exists");
             core.setOutput("exists", true);
             return;
         }

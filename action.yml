@@ -61,6 +61,10 @@ inputs:
   check_only:
     description: Check only if artifact exists, don't download
     required: false
+outputs:
+  exists:
+    description: Artifact exists
+
 runs:
   using: node12
   main: dist/index.js
