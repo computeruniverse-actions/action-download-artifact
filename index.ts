@@ -113,13 +113,16 @@ async function index() {
             throw new Error("no matching workflow run found")
         }
 
-        let artifacts = (await client.paginate(client.rest.actions.listWorkflowRunArtifacts, {
+        let artifactsRaw = (await client.paginate(client.rest.actions.listWorkflowRunArtifacts, {
             owner: owner,
             repo: repo,
             run_id: runID,
-        })).artifacts.filter(artifact => !name || artifact.name === name)
+        }))
 
-        if (artifacts.length == 0)
+        console.log(artifactsRaw);
+        const artifacts = artifactsRaw?.filter(artifact => !name || artifact.name === name)
+
+        if (artifacts?.length == 0)
             throw new Error("no artifacts found")
 
         if(checkOnly)
