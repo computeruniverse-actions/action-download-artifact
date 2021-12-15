@@ -75,7 +75,6 @@ async function index() {
             }
             )) {
                 for (const run of runs.data) {
-                    console.log("rawData", run);
                     if (!searchArtifacts && (commit && run.head_sha != commit)) {
                         continue
                     }
