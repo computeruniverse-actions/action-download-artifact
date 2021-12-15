@@ -18,7 +18,7 @@ inputs:
 
       https://docs.github.com/en/free-pro-team@latest/rest/reference/actions#list-workflow-runs
     required: false
-    default: completed
+    default: ''
   repo:
     description: Repository name with owner (like actions/checkout)
     required: false

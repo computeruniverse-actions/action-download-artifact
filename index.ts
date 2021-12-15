@@ -13,7 +13,7 @@ async function index() {
         const [owner, repo] = core.getInput("repo", { required: true }).split("/")
         const path = core.getInput("path", { required: true })
         const name = core.getInput("name")
-        let workflowConclusion = core.getInput("workflow_conclusion")
+        let workflowConclusion = core.getInput("workflow_conclusion")?.length ? core.getInput("workflow_conclusion") : undefined;
         let pr = parseInt(core.getInput("pr"));
         let commit = core.getInput("commit")
         let branch = core.getInput("branch")
